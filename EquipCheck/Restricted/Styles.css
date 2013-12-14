@@ -1,0 +1,134 @@
+﻿/* Cascading Style Sheet for formatting the application. */
+
+#LeftLayout
+{
+    display: inline-block;
+    text-align: left;
+}
+
+#LeftPanel
+{
+    float: left;
+    margin-right: 25px;
+}
+
+body 
+{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #DFFFDF;
+}
+
+#menu
+{
+    display: inline-block;
+    width: 660px;
+    /*background-color: bisque;*/ /* For diagnostics only */
+}
+
+.level1
+{
+    font-family: Arial, sans-serif;
+    font-size: large;
+    background-color: #F7F6F3;
+    color: black;
+    width: 132px;
+}
+
+#PageHeaderLabel, .PageHeaderLabel
+{
+    display: inline-block;
+    font-size: xx-large;
+    margin: 20px;
+    /* background-color: yellow; */ /* For diagnostics only */
+}
+
+.PageNameLabel
+{
+    display: inline-block;
+    font-size: x-large;
+    margin: 5px 0 10px 0;
+    /*background-color: aqua;*/ /* For diagnostics only */
+}
+
+.asplogin
+{
+    display: inline-block;
+}
+
+.BoxLabel
+{
+    display: inline-block;
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+
+.RequiredEntryBoxLabel
+{
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 400px;
+}
+
+.SummaryTextBox
+{
+    font-family: Arial, sans-serif;
+    font-size: small;
+    width: 660px;
+}
+
+.ItemTextBox
+{
+    font-family: Arial, sans-serif;
+    font-size: small;
+    width: 300px;
+    resize: none;
+}
+
+.ChecklistTextBox
+{
+    font-family: Arial, sans-serif;
+    font-size: small;
+    margin-top: 2px;
+    width: 300px;
+}
+
+.DropDownList
+{
+    font-family: Arial, sans-serif;
+    font-size: small;
+    width: 180px;
+}
+
+.LoginButton
+{
+    width: 60px;
+    margin: 20px 0 0 0;
+}
+
+#SelectItemsMultilineLabelDiv
+{
+    font-family: Arial, sans-serif;
+    font-size: small;
+    font-weight: normal;
+    height: 500px;
+    width: 660px;
+    padding: 2px 2px 2px 2px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+}
+
+.SelectItemsMultilineLabel
+{
+    font-family: Arial, sans-serif;
+    font-size: small;
+    font-weight: normal;
+    /*background-color:  cyan;*/ /* For diagnostics only */
+}
+
+.highlightItem
+{
+    background-color:  lightblue;
+}

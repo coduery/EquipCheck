@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EquipCheckModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="EquipCheckModelStoreContainer">
+          <EntitySet Name="app_users" EntityType="EquipCheckModel.Store.app_users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="checklists" EntityType="EquipCheckModel.Store.checklists" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="equipment_items" EntityType="EquipCheckModel.Store.equipment_items" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="equipment_lists" EntityType="EquipCheckModel.Store.equipment_lists" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_checklists_app_users" Association="EquipCheckModel.Store.FK_checklists_app_users">
+            <End Role="app_users" EntitySet="app_users" />
+            <End Role="checklists" EntitySet="checklists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_equipment_items_equipment_lists" Association="EquipCheckModel.Store.FK_equipment_items_equipment_lists">
+            <End Role="equipment_lists" EntitySet="equipment_lists" />
+            <End Role="equipment_items" EntitySet="equipment_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_equipment_lists_app_users" Association="EquipCheckModel.Store.FK_equipment_lists_app_users">
+            <End Role="app_users" EntitySet="app_users" />
+            <End Role="equipment_lists" EntitySet="equipment_lists" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="app_users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="checklists">
+          <Key>
+            <PropertyRef Name="checklist_id" />
+          </Key>
+          <Property Name="checklist_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="checklist_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="checklist_description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="trip_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="trip_description" Type="nvarchar" MaxLength="250" />
+          <Property Name="trip_date" Type="nvarchar" MaxLength="20" />
+          <Property Name="checklist_summary" Type="ntext" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="equipment_items">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="item_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="item_description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="list_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="equipment_lists">
+          <Key>
+            <PropertyRef Name="list_id" />
+          </Key>
+          <Property Name="list_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="list_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="list_description" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_checklists_app_users">
+          <End Role="app_users" Type="EquipCheckModel.Store.app_users" Multiplicity="1" />
+          <End Role="checklists" Type="EquipCheckModel.Store.checklists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="checklists">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_equipment_items_equipment_lists">
+          <End Role="equipment_lists" Type="EquipCheckModel.Store.equipment_lists" Multiplicity="1" />
+          <End Role="equipment_items" Type="EquipCheckModel.Store.equipment_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="equipment_lists">
+              <PropertyRef Name="list_id" />
+            </Principal>
+            <Dependent Role="equipment_items">
+              <PropertyRef Name="list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_equipment_lists_app_users">
+          <End Role="app_users" Type="EquipCheckModel.Store.app_users" Multiplicity="1" />
+          <End Role="equipment_lists" Type="EquipCheckModel.Store.equipment_lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="equipment_lists">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EquipCheckModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EquipCheckEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="app_users" EntityType="EquipCheckModel.app_users" />
+          <EntitySet Name="checklists" EntityType="EquipCheckModel.checklist" />
+          <EntitySet Name="equipment_items" EntityType="EquipCheckModel.equipment_items" />
+          <EntitySet Name="equipment_lists" EntityType="EquipCheckModel.equipment_lists" />
+          <AssociationSet Name="FK_checklists_app_users" Association="EquipCheckModel.FK_checklists_app_users">
+            <End Role="app_users" EntitySet="app_users" />
+            <End Role="checklists" EntitySet="checklists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_equipment_lists_app_users" Association="EquipCheckModel.FK_equipment_lists_app_users">
+            <End Role="app_users" EntitySet="app_users" />
+            <End Role="equipment_lists" EntitySet="equipment_lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_equipment_items_equipment_lists" Association="EquipCheckModel.FK_equipment_items_equipment_lists">
+            <End Role="equipment_lists" EntitySet="equipment_lists" />
+            <End Role="equipment_items" EntitySet="equipment_items" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="app_users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="checklists" Relationship="EquipCheckModel.FK_checklists_app_users" FromRole="app_users" ToRole="checklists" />
+          <NavigationProperty Name="equipment_lists" Relationship="EquipCheckModel.FK_equipment_lists_app_users" FromRole="app_users" ToRole="equipment_lists" />
+        </EntityType>
+        <EntityType Name="checklist">
+          <Key>
+            <PropertyRef Name="checklist_id" />
+          </Key>
+          <Property Name="checklist_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="checklist_name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="checklist_description" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="trip_name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="trip_description" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="trip_date" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="checklist_summary" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="app_users" Relationship="EquipCheckModel.FK_checklists_app_users" FromRole="checklists" ToRole="app_users" />
+        </EntityType>
+        <EntityType Name="equipment_items">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="item_name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="item_description" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="list_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="equipment_lists" Relationship="EquipCheckModel.FK_equipment_items_equipment_lists" FromRole="equipment_items" ToRole="equipment_lists" />
+        </EntityType>
+        <EntityType Name="equipment_lists">
+          <Key>
+            <PropertyRef Name="list_id" />
+          </Key>
+          <Property Name="list_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="list_name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="list_description" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="app_users" Relationship="EquipCheckModel.FK_equipment_lists_app_users" FromRole="equipment_lists" ToRole="app_users" />
+          <NavigationProperty Name="equipment_items" Relationship="EquipCheckModel.FK_equipment_items_equipment_lists" FromRole="equipment_lists" ToRole="equipment_items" />
+        </EntityType>
+        <Association Name="FK_checklists_app_users">
+          <End Role="app_users" Type="EquipCheckModel.app_users" Multiplicity="1" />
+          <End Role="checklists" Type="EquipCheckModel.checklist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="checklists">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_equipment_lists_app_users">
+          <End Role="app_users" Type="EquipCheckModel.app_users" Multiplicity="1" />
+          <End Role="equipment_lists" Type="EquipCheckModel.equipment_lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="equipment_lists">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_equipment_items_equipment_lists">
+          <End Role="equipment_lists" Type="EquipCheckModel.equipment_lists" Multiplicity="1" />
+          <End Role="equipment_items" Type="EquipCheckModel.equipment_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="equipment_lists">
+              <PropertyRef Name="list_id" />
+            </Principal>
+            <Dependent Role="equipment_items">
+              <PropertyRef Name="list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EquipCheckModelStoreContainer" CdmEntityContainer="EquipCheckEntities">
+          <EntitySetMapping Name="app_users">
+            <EntityTypeMapping TypeName="EquipCheckModel.app_users">
+              <MappingFragment StoreEntitySet="app_users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="checklists">
+            <EntityTypeMapping TypeName="EquipCheckModel.checklist">
+              <MappingFragment StoreEntitySet="checklists">
+                <ScalarProperty Name="checklist_id" ColumnName="checklist_id" />
+                <ScalarProperty Name="checklist_name" ColumnName="checklist_name" />
+                <ScalarProperty Name="checklist_description" ColumnName="checklist_description" />
+                <ScalarProperty Name="trip_name" ColumnName="trip_name" />
+                <ScalarProperty Name="trip_description" ColumnName="trip_description" />
+                <ScalarProperty Name="trip_date" ColumnName="trip_date" />
+                <ScalarProperty Name="checklist_summary" ColumnName="checklist_summary" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="equipment_items">
+            <EntityTypeMapping TypeName="EquipCheckModel.equipment_items">
+              <MappingFragment StoreEntitySet="equipment_items">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="item_description" ColumnName="item_description" />
+                <ScalarProperty Name="list_id" ColumnName="list_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="equipment_lists">
+            <EntityTypeMapping TypeName="EquipCheckModel.equipment_lists">
+              <MappingFragment StoreEntitySet="equipment_lists">
+                <ScalarProperty Name="list_id" ColumnName="list_id" />
+                <ScalarProperty Name="list_name" ColumnName="list_name" />
+                <ScalarProperty Name="list_description" ColumnName="list_description" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
